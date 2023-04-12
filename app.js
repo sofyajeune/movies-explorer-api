@@ -26,7 +26,7 @@ app.use(helmet());
 // Подключаемся к монго по адресу (mestodb — имя базы данных, которая будет создана.)
 mongoose.set('strictQuery', true);
 mongoose
-  .connect('mongodb://localhost:27017/bitfilmsdb')
+  .connect('mongodb://0.0.0.0:27017/bitfilmsdb')
   .then(() => {
     // eslint-disable-next-line no-console
     console.log('Database connected.');
