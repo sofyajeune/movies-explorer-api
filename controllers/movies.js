@@ -4,6 +4,8 @@ const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 const OwnerError = require('../errors/OwnerError');
 
+const {  FILMS_INCORRECT_DATA, FILMS_NOT_FOUND, FILMS_DELETE, FILMS_ID_INCORRECT } = require('../utils/constants');
+
 // router.get('/movies', getMovies)
 exports.getMovies = (req, res, next) => {
   Movies.find({ owner: req.user._id })
@@ -43,7 +45,7 @@ exports.createMovie = (req, res, next) => {
     .then((movie) => res.send({ data: movie }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Переданы некорректные данные при создании фильма'));
+        next(new BadRequestError(FILMS_INCORRECT_DATA));
       } else {
         next(err);
       }
@@ -54,7 +56,7 @@ exports.createMovie = (req, res, next) => {
 exports.deleteMovies = (req, res, next) => {
   Movies.findById(req.params.movieId)
     .orFail(() => {
-      throw new NotFoundError('Фильм не найден');
+      throw new NotFoundError(FILMS_NOT_FOUND);
     })
     .then((movie) => {
       const owner = movie.owner.toString();
@@ -65,12 +67,12 @@ exports.deleteMovies = (req, res, next) => {
           })
           .catch(next);
       } else {
-        throw new OwnerError('Вы не можете удалить чужой фильм');
+        throw new OwnerError(FILMS_DELETE);
       }
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new NotFoundError('Некорректный id'));
+        next(new NotFoundError(FILMS_ID_INCORRECT));
       } else {
         next(err);
       }

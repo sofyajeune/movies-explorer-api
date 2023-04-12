@@ -2,11 +2,7 @@ const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const { validationUrl } = require('../utils/validation');
 
-const {
-  getMovies,
-  createMovie,
-  deleteMovies,
-} = require('../controllers/movies'); //экспорт контроллеров
+const { getMovies, createMovie, deleteMovies } = require('../controllers/movies'); //экспорт контроллеров
 
 // возвращает все сохранённые текущим  пользователем фильмы
 router.get('/movies', getMovies);

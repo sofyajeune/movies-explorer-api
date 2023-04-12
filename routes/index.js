@@ -3,6 +3,8 @@ const { celebrate, Joi } = require('celebrate');
 
 const { login, createUser } = require('../controllers/users');
 
+const { NOTFOUND_ERROR } = require('../utils/constants');
+
 // проверяет переданные в теле почту и пароль
 // и возвращает JWT
 router.post('/signin', celebrate({
@@ -27,6 +29,6 @@ router.use(require('../middlewares/auth'));
 router.use(require('./users'));
 router.use(require('./movies'));
 
-router.use((req, res, next) => next(new NotFoundError('Ошибка 404. Страница не найдена!')));
+router.use((req, res, next) => next(new NotFoundError(NOTFOUND_ERROR)));
 
 module.exports = router;

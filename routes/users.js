@@ -2,10 +2,7 @@ const router = require('express').Router();
 const { celebrate, Joi } = require('celebrate');
 const { validationEmail } = require('../utils/validation');
 
-const {
-  updateProfile,
-  getUser,
-} = require('../controllers/users');
+const { updateProfile, getUser } = require('../controllers/users');
 
 // возвращает информацию о пользователе (email и имя)
 router.get('/users/me', getUser);
