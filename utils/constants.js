@@ -12,11 +12,17 @@ const FILMS_ID_INCORRECT = 'Некорректный id';
 
 const USER_ALREADY_EXISTS = 'Пользователь с такой почтой уже зарегистрирован';
 const USER_INCORRECT_DATA = 'Переданы некорректные данные при создании пользователя';
-const USER_NOT_FOUND = 'Пользователь с таким именем не существует';
+const USER_INCORRECT_UPDATE = 'Переданы некорректные данные при редактировании пользователя';
+const USER_NOT_FOUND = 'Пользователь с таким ID не существует';
 
 const EMAIL_ERROR = 'Неправильный формат почты';
 const EMAILPASSWORD_ERROR = 'Неправильные почта или пароль';
 const NOTFOUND_ERROR = 'Ошибка 404. Страница не найдена';
+const AUTHORIZED_AUTH = 'Необходима авторизация';
+const SERVER_ERR = 'Ошибка на сервере';
+
+const EMAIL_INCORRECT = 'Необходимо ввести корректный email';
+const URL_INCORRECT = 'Необходимо ввести корректный URL';
 
 module.exports = {
   DUPLICATE_ERROR,
@@ -34,5 +40,10 @@ module.exports = {
   USER_NOT_FOUND,
   EMAIL_ERROR,
   EMAILPASSWORD_ERROR,
-  NOTFOUND_ERROR
+  NOTFOUND_ERROR,
+  USER_INCORRECT_UPDATE,
+  AUTHORIZED_AUTH,
+  SERVER_ERR,
+  URL_INCORRECT,
+  EMAIL_INCORRECT,
 };

@@ -4,7 +4,9 @@ const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 const OwnerError = require('../errors/OwnerError');
 
-const {  FILMS_INCORRECT_DATA, FILMS_NOT_FOUND, FILMS_DELETE, FILMS_ID_INCORRECT } = require('../utils/constants');
+const {
+  FILMS_INCORRECT_DATA, FILMS_NOT_FOUND, FILMS_DELETE, FILMS_ID_INCORRECT,
+} = require('../utils/constants');
 
 // router.get('/movies', getMovies)
 exports.getMovies = (req, res, next) => {
@@ -22,11 +24,12 @@ exports.createMovie = (req, res, next) => {
     year,
     description,
     image,
-    railerLink,
+    trailerLink,
     thumbnail,
     movieId,
     nameRU,
-    nameEN } = req.body;
+    nameEN,
+  } = req.body;
 
   const owner = req.user._id;
   Movies.create({
@@ -36,11 +39,12 @@ exports.createMovie = (req, res, next) => {
     year,
     description,
     image,
-    railerLink,
+    trailerLink,
     thumbnail,
     movieId,
     nameRU,
-    nameEN
+    nameEN,
+    owner,
   })
     .then((movie) => res.send({ data: movie }))
     .catch((err) => {
@@ -72,7 +76,7 @@ exports.deleteMovies = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new NotFoundError(FILMS_ID_INCORRECT));
+        next(new BadRequestError(FILMS_ID_INCORRECT));
       } else {
         next(err);
       }

@@ -8,14 +8,16 @@ const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 const DuplicateError = require('../errors/DuplicateError');
 
-const { USER_ALREADY_EXISTS, USER_INCORRECT_DATA, USER_NOT_FOUND } = require('../utils/constants');
+const {
+  USER_ALREADY_EXISTS, USER_INCORRECT_DATA, USER_NOT_FOUND, USER_INCORRECT_UPDATE,
+} = require('../utils/constants');
 
 // router.get('/users/me', getUser)
 module.exports.getUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
-        throw new NotFoundError(USER_NOT_FOUND);
+        throw new NotFoundError(USER_INCORRECT_UPDATE);
       }
       return res.send({ data: user });
     })
@@ -77,7 +79,9 @@ exports.updateProfile = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError(USER_INCORRECT_DATA));
+        next(new BadRequestError(USER_INCORRECT_UPDATE));
+      } else if (err.code === 11000) {
+        next(new DuplicateError(USER_ALREADY_EXISTS));
       } else {
         next(err);
       }
