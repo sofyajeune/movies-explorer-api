@@ -21,9 +21,9 @@ const createMovieValidation = celebrate({
     duration: Joi.number().required(),
     year: Joi.string().required(),
     description: Joi.string().required(),
-    image: Joi.string().min(2).required().pattern(validationUrl),
-    trailerLink: Joi.string().min(2).required().pattern(validationUrl),
-    thumbnail: Joi.string().min(2).required().pattern(validationUrl),
+    image: Joi.string().min().required().pattern(validationUrl),
+    trailerLink: Joi.string().min().required().pattern(validationUrl),
+    thumbnail: Joi.string().min().required().pattern(validationUrl),
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
     movieId: Joi.number().required(),
@@ -32,7 +32,7 @@ const createMovieValidation = celebrate({
 
 const deleteMovieValidation = celebrate({
   params: Joi.object().keys({
-    movieId: Joi.string().required(),
+    movieId: Joi.objectId().required(),
   }),
 });
 
